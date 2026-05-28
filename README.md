@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# group-counseling-hub (오프라인 현장 연계형 디지털 집단상담 플랫폼)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+오프라인 상담 현장에서 교사(상담자)와 집단원(학생)이 별도의 서버 구축 없이도 실시간으로 고민을 수집하고, 맞춤형 AI 상담 기법을 적용하며, 상호 정서 타당화 스티커를 발송할 수 있는 **현장 밀착형 디지털 집단상담 시뮬레이터**입니다.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 💡 기획 배경
+한국의 학교 및 복지 시설 등의 상담 현장에서는 집단상담의 중요성이 점차 대두되고 있으나, 이를 지원하는 **전용 디지털 도구의 부족**으로 인해 여전히 종이 포스트잇과 아날로그 화이트보드에 의존하고 있습니다. 이는 다음과 같은 문제를 야기합니다:
+- **익명성 보장의 어려움**: 민감한 고민을 적을 때 필체나 태도로 인해 낙인 효과가 발생할 수 있습니다.
+- **실시간 통계 및 분석의 지연**: 집단원 전체의 감정 온도나 고민 키워드를 강사가 즉각 집계하기 어렵습니다.
+- **상호작용성 부족**: 상담이 끝난 후 즉각적이고 가볍게 서로를 격려하는 피드백 기제가 부족합니다.
 
-## React Compiler
+`group-counseling-hub`는 이러한 문제를 해결하고자 스마트폰과 빔프로젝터(혹은 강사 PC)를 연계하여 오프라인에서 즉시 시연 및 활용할 수 있도록 개발되었습니다.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ 기술 스택 (Backend-less Realtime Sync)
+네트워크 연결 상태가 불완전한 현장에서도 독립적으로 구동될 수 있도록 **서버가 필요 없는(Backend-less) 실시간 동기화 아키텍처**를 설계했습니다:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 19 & TypeScript & Vite**: 가볍고 정교한 컴포넌트 렌더링.
+- **BroadcastChannel API**: 동일 PC 내의 다른 브라우저 탭 간 실시간 양방향 이벤트/상태 전송 (`group_counseling_channel`).
+- **LocalStorage**: 브라우저 종료 시에도 세션 기록 및 기존 상담 기록을 영구적으로 보존.
+- **Zero External Dependencies**: 라우팅이나 스타일링을 위한 무거운 라이브러리(`react-router-dom`, `TailwindCSS` 등)를 원천적으로 배제하고, CSS Variables와 순수 React State를 활용해 완벽한 반응형 뷰를 구현.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🎨 디자인 시스템
+집단원들의 정서적 안정감과 상담 플랫폼으로서의 높은 신뢰감을 주는 색채를 바탕으로 설계되었습니다:
+- **배경 (Background)**: 따뜻하고 부드러운 아이보리 (`#FDFAF5`)
+- **포인트 컬러 (Point Color)**: 마음을 이완시키는 파스텔 민트 (`#A8D5C2`)
+- **텍스트/아이콘 (Text)**: 눈의 피로를 최소화하는 소프트 챠콜 그레이 (`#4A4A4A`)
+- **포스트잇 카드 (Post-its)**: 익명 고민 작성을 위한 백색 (`#FFFFFF`)
+- **강조/전환 버튼 (Highlight)**: 친근감과 따뜻함을 전달하는 피치 (`#F4C2A1`)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🚀 시연 가이드 (How to Demo)
+
+### 1. 로컬 서버 실행
+프로젝트 폴더 내 터미널에서 아래 명령어로 로컬 Vite 서버를 구동합니다.
+```bash
+npm.cmd run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. 브라우저 창 2개 열기
+구동된 주소([http://localhost:5173/](http://localhost:5173/))로 브라우저 **탭 혹은 창을 2개** 엽니다.
+- **탭 A**: 인트로 화면에서 **[선생님 모드로 시작하기]** 버튼 클릭
+- **탭 B**: 인트로 화면에서 **[학생 모드로 참여하기]** 버튼 클릭
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 3. 단계별 시연 흐름
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+#### 1단계: 고민 수집 ([고민 수집])
+- **학생 탭**: 감정 이모지를 고르고 고민 텍스트를 입력한 뒤 **[익명으로 고민 올리기]** 버튼 클릭.
+- **선생님 탭**: 학생이 보낸 고민이 실시간(BroadcastChannel)으로 포스트잇 형태로 날아와 꽂히는 것을 확인.
+- **시연 팁**: 선생님 화면의 **[시연용 더미 데이터 5개 채우기]** 버튼을 클릭하여, 5개의 실제 임상 기반 가짜 고민 데이터가 즉시 생성되는 모습을 확인합니다.
+- 고민이 5개 이상 수집되면 선생님 화면의 **[AI 분석 및 상담 이론 추천]** 버튼이 민트색으로 활성화됩니다. 클릭하여 진행합니다.
+
+#### 2단계: AI 상담이론 매칭 ([AI 이론 추천])
+- **선생님 탭**: 고민 키워드를 실시간으로 추출하는 3초 로딩 연출("고민 분석 중...") 후, 94% 적합도로 **변증법적 행동치료(DBT)** 카드가 상단에 추천됩니다.
+- **학생 탭**: 선생님이 분석하는 동안 "선생님이 상담 방법을 선택 중입니다"라는 실시간 대기 화면을 보여줍니다.
+- 선생님이 **[변증법적 행동치료 (DBT)]** 카드를 선택하면, **학생 탭이 자동으로 즉시 3단계 라이브 세션으로 연동 전환**됩니다.
+
+#### 3단계: 라이브 세션 ([라이브 세션])
+- **선생님 탭 (대시보드)**: 좌측에서 `TIPP 호흡 타이머`, `감정 온도계`, `STOP 성찰 카드` 중 하나를 선택하면 **학생 화면이 실시간으로 해당 기법 UI로 변경**됩니다.
+  - **TIPP 호흡**: 학생 화면에서 60초 타이머와 함께 4초(흡-원 팽창) / 6초(호-원 수축) 호흡 가이드가 작동합니다.
+  - **감정 온도계**: 학생이 1~100 사이 슬라이더를 통해 자신의 감정 온도를 제출하면, 선생님 화면의 **실시간 학급 평균 감정 온도**가 실시간으로 변동 집계됩니다.
+  - **STOP 성찰**: 학생이 S-T-O-P 성찰 카드를 읽어가며 "다음"을 누르는 인터랙티브 성찰 프로세스입니다.
+- **상호 응원 (타당화)**: 기법 훈련이 끝난 학생은 `💚`, `🌿`, `✨`, `🌸`, `☁️` 5종의 스티커 버튼을 통해 응원을 보낼 수 있으며, 클릭 시 선생님 탭 우측 응원 보드에 팝업 효과와 함께 실시간 누적됩니다. 학생 화면에는 둥실둥실 위로 솟구치는 floating 파티클 효과가 나타납니다.
+
+#### 4단계: 기록 보존 ([기록실])
+- 선생님이 좌측 하단의 **[세션 종료하고 기록 저장]**을 누르면 양쪽 탭 모두 4단계 기록실로 이동합니다.
+- 방금 완수한 세션의 통계(고민 수, 사용 기법, 스티커 수 등)가 기록 카드로 카드 리스트 최상단에 누적 저장됩니다.
+- **[기록 내보내기]**를 클릭해 누적 기록을 `gc_session_logs.json` 파일로 다운로드하거나, **[새 세션 시작하기]**를 눌러 전체 공유 상태를 초기화하고 1단계로 순환할 수 있습니다.

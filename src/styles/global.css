@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+/* ==========================================
+   group-counseling-hub Design System Tokens
+   ========================================== */
+:root {
+  --bg-color: #FDFAF5;       /* Warm Ivory */
+  --point-color: #A8D5C2;    /* Pastel Mint */
+  --point-dark: #8fc4ad;     /* Slightly Darker Mint */
+  --text-color: #4A4A4A;     /* Soft Charcoal Gray */
+  --card-bg: #FFFFFF;        /* Pure White for Post-its */
+  --highlight-color: #F4C2A1;/* Warm Peach */
+  --highlight-dark: #e5af8a; /* Darker Peach */
+  --border-color: #E6DFD5;
+  --text-muted: #8E8A82;
+  
+  --font-family: 'Noto Sans KR', sans-serif;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 4px 12px rgba(74, 74, 74, 0.04);
+  --shadow-md: 0 8px 24px rgba(74, 74, 74, 0.08);
+  --shadow-lg: 0 16px 36px rgba(74, 74, 74, 0.12);
+}
+
+/* Global Reset & Base Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+}
+
+p {
+  margin: 0 0 1rem 0;
+}
+
+/* Responsive Main Containers */
+.app-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  max-width: 1440px; /* Desktop */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    max-width: 768px; /* Tablet */
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    max-width: 360px; /* Mobile */
+    padding: 0.75rem;
+  }
+}
+
+/* Buttons */
+.btn {
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--point-color);
+  color: var(--text-color);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--point-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(168, 213, 194, 0.4);
+}
+
+.btn-peach {
+  background-color: var(--highlight-color);
+  color: var(--text-color);
+}
+
+.btn-peach:hover:not(:disabled) {
+  background-color: var(--highlight-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(244, 194, 161, 0.4);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1.5px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background-color: rgba(74, 74, 74, 0.05);
+}
+
+/* Post-it Notes */
+.postit-card {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  position: relative;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160px;
+}
+
+.postit-card:hover {
+  transform: translateY(-4px) rotate(1deg);
+  box-shadow: var(--shadow-lg);
+}
+
+.postit-tag {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background-color: var(--bg-color);
+  margin-bottom: 0.75rem;
+}
+
+/* Step Bar Common Header */
+.step-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  position: relative;
+}
+
+.step-item.active {
+  color: var(--text-color);
+}
+
+.step-item.active .step-dot {
+  background-color: var(--point-color);
+  border-color: var(--point-color);
+  box-shadow: 0 0 0 4px rgba(168, 213, 194, 0.3);
+}
+
+.step-item.completed {
+  color: var(--point-dark);
+}
+
+.step-item.completed .step-dot {
+  background-color: var(--point-color);
+  border-color: var(--point-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  font-size: 0.7rem;
+}
+
+.step-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  background-color: var(--card-bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.step-arrow {
+  color: var(--border-color);
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .step-bar {
+    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  .step-arrow {
+    display: none;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popUp {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0.6) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1.1) rotate(10deg);
+  }
+  100% {
+    transform: translateY(-400px) scale(0.8) rotate(-15deg);
+    opacity: 0;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.animate-pop-up {
+  animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.floating-sticker {
+  position: absolute;
+  bottom: 40px;
+  font-size: 2.5rem;
+  pointer-events: none;
+  animation: floatUp 2.5s ease-out forwards;
+  z-index: 100;
+}
